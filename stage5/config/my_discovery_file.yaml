@@ -1,0 +1,106 @@
+#
+# Discovery happens on a SEED network running EOS.IO software.
+# We boot a new network from a previous network, until we reach the mainnet.
+# We call each network a stage. Ex: stage0, stage1, stage2, stage3, until "mainnet".
+#
+seed_network_chain_id: "0000000000000000000000000000000000000000000000000000000000000000"
+seed_network_account_name: eosflareio
+seed_network_http_address: http://stage4.eosflare.io:8804
+# These are your peers on the SEED network.  They must have published
+# their discovery in the seed network `eosio.disco` contract (with
+# `eos-bios publish`). Otherwise, your peer link here will be ignored.
+seed_network_peers:
+- account: eossocal
+  comment: "hello socal"
+  weight: 10 # Weights are between 0 and 100 (INT value)
+- account: eoscanadacom
+  comment: "hello canada"
+  weight: 100
+- account: blocksmith
+  comment: "hello smith"
+  weight: 10
+- account: eosmama
+  comment: "hello mama"
+  weight: 1
+
+seed_network_launch_block: 86400 # Block on the SEED EOS network before we orchestrate the TARGET network launch.  Putting a past block will start orchestration right away.
+
+urls:
+- https://eosflare.io
+
+# To help organize schedules for rehearsals.
+gmt_offset: +800  # in HourMinutes format
+
+target_network_is_test: 1  # 0 = mainnet, anything else is a testnet
+# You can only link with peers that target the same chain_id
+target_chain_id: "0000000000000000000000000000000000000000000000000000000000000000"
+target_p2p_address: stage5.eosflare.io:9805
+target_http_address: http://stage5.eosflare.io:8805
+target_account_name: eosflareio
+target_appointed_block_producer_signing_key: EOS6EoqeV7vSMfsfNHPWEEWAsTgffMM2hCZomGxS16G3AwS1VSvaL
+target_initial_authority:
+  owner:
+    threshold: 1
+    keys:
+    - key: EOS6EoqeV7vSMfsfNHPWEEWAsTgffMM2hCZomGxS16G3AwS1VSvaL
+      weight: 1
+  active:
+    threshold: 1
+    keys:
+    - key: EOS6EoqeV7vSMfsfNHPWEEWAsTgffMM2hCZomGxS16G3AwS1VSvaL
+      weight: 1
+  recovery:
+    threshold: 1
+    accounts:
+    - permission:
+        actor: eosio
+        permission: active
+      weight: 1
+
+target_contents:
+  - name: boot_sequence.yaml
+    ref: /ipfs/QmdNbPrn8zFPN3obHhddMzj9SMpw642AAe411gQYi4PSxW
+    comment: "Includes eosio.disco. Does kill accounts at the end. Refers to github.com/eoscanada/eos-bios/files/boot_sequence.yaml"
+  - name: snapshot.csv
+    ref: /ipfs/QmY4iHQYoqUZ6e1iqFGqYYLzYWiYjy3zFLoMhG9PvSsrSD
+    comment: "Snapshot of period 290."
+  #- name: snapshot_unregistered.csv
+  #  ref: /ipfs/Qm...
+  #  comment: ""
+  - name: eosio.bios.abi
+    ref: /ipfs/QmbZATGSuN1rwfX4WMHaVHCroZgKwHZjvvEQg93HtcpSk4
+    comment: "Published by EOS Canada. From dawn3x release tag"
+  - name: eosio.bios.wasm
+    ref: /ipfs/QmVNzTLXSegBdpDxUMrKMVpFBbwnpu2j45iRrFkBtxuQby
+    comment: "Published by EOS Canada. From dawn3x release."
+  - name: eosio.system.abi
+    ref: /ipfs/QmPxEwukXL4tsMiqKtGozLUDzrc6ckwcVjgf68YQyGD5Fu
+    comment: "Published by EOS Canada. Dawn3x release."
+  - name: eosio.system.wasm
+    ref: /ipfs/QmQaMSL54PDxQZZFmXK2TXcV7oHCBocCZ6i4D98CNDSBd8
+    comment: "Published by EOS Canada. Dawn3x release."
+  - name: eosio.msig.abi
+    ref: /ipfs/Qmdbo2jFGLH1mBGYTiktpEmizwK4ZVSxjtfh9o38AAQquw
+    comment: "Published by EOS Canada. Dawn3x release."
+  - name: eosio.msig.wasm
+    ref: /ipfs/QmbXo3nTe3obzQdKYqj9pe5Abf1Er5pqtFL2DsVSQKyF4p
+    comment: "Published by EOS Canada. Dawn3x release."
+  - name: eosio.token.abi
+    ref: /ipfs/QmZpmcrfWAEUU4KG6hRPrBRTJ2X63sTrQsBRogiKZA7aP6
+    comment: "Published by EOS Canada. Dawn3x release."
+  - name: eosio.token.wasm
+    ref: /ipfs/QmTe5K1eR8Vbmz4mxEJSGyus9PrHymjL9hX31x1B5pchJT
+    comment: "Published by EOS Canada. Dawn3x release."
+  - name: eosio.disco.abi
+    ref: /ipfs/QmUmTuXUkLBNdxHSHtv2Pf7nos5ndcUfiK36qvge2wyMaB
+    comment: "Published by EOS Canada. Dawn3x release."
+  - name: eosio.disco.wasm
+    ref: /ipfs/QmePZXNe9SejcP24PiG4aEuE6GdPrQDXEkNftTUPVwHt5t
+    comment: "Published by EOS Canada. Dawn3x release."
+
+  # - name: eosio.unregd.abi
+  #   ref: /ipfs/Qm...
+  #   comment: ""
+  # - name: eosio.unregd.wasm
+  #   ref: /ipfs/Qm...
+  #   comment: ""
