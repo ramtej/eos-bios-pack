@@ -10,7 +10,7 @@ https://github.com/eoscanada/eos-bios
 THIS VERSION IS TESTED IN CENTOS ONLY, BUT SHOULD WORK IN ALL LINUX DIST.
 
 
-##HOW TO GO TO THE NEXT STAGE
+## HOW TO GO TO THE NEXT STAGE
 
 1. Copy the template from the current SEED stage
 
